@@ -93,7 +93,7 @@ setInterval(updateCountdown, 1000);
 
 // ================= BENTO & CARDS SPOTLIGHT INTERACTION =================
 // Dynamic cursor-following radiant crimson spotlight
-document.querySelectorAll(".bento-card, .board-3d-card, .speaker-teaser-card").forEach(card => {
+document.querySelectorAll(".bento-card, .board-3d-card, .speakers-monolith-card").forEach(card => {
   card.addEventListener("mousemove", (e) => {
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;

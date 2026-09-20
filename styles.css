@@ -1337,159 +1337,223 @@ h2 { font-size: clamp(2.2rem, 4vw, 4rem); font-weight: 800; letter-spacing: -.04
   color: #a1a1aa;
 }
 
-/* Speaker Teaser Cards */
-.speaker-teaser-card {
-  background: rgba(13, 13, 17, 0.68);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 22px;
-  overflow: hidden;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+/* ================= SPEAKERS ANNOUNCEMENT MONOLITH ================= */
+.speakers-announcement-stage {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.speakers-monolith-card {
   position: relative;
-  height: 100%;
+  border-radius: 30px;
+  background: linear-gradient(168deg, rgba(20, 20, 27, 0.85) 0%, rgba(9, 9, 14, 0.94) 100%);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 35px 80px -20px rgba(0, 0, 0, 0.9), 0 0 50px -10px rgba(235, 0, 40, 0.22);
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.speakers-monolith-card:hover {
+  border-color: rgba(235, 0, 40, 0.5);
+  box-shadow: 0 40px 90px -15px rgba(0, 0, 0, 0.95), 0 0 70px -5px rgba(235, 0, 40, 0.35);
+  transform: translateY(-4px);
+}
+
+.monolith-radar-glow {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(235, 0, 40, 0.22) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.monolith-inner {
+  position: relative;
+  z-index: 2;
+  padding: 42px 48px;
+}
+
+.monolith-badge-strip {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  margin-bottom: 36px;
 }
 
-.speaker-teaser-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(235, 0, 40, 0.45);
-  box-shadow: 0 25px 50px -10px rgba(235, 0, 40, 0.28);
+.monolith-pill {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: #ff3355;
+  background: rgba(235, 0, 40, 0.12);
+  border: 1px solid rgba(235, 0, 40, 0.3);
+  padding: 6px 16px;
+  border-radius: 100px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.teaser-avatar-wrap {
+.monolith-live-beacon {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ff2b4e;
+  box-shadow: 0 0 10px #ff2b4e;
+  animation: beaconPulse 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes beaconPulse {
+  from { opacity: 0.35; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1.3); }
+}
+
+.monolith-edition {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* Emblem Visual */
+.monolith-visual-emblem {
   position: relative;
-  overflow: hidden;
-}
-
-.silhouette-box {
-  aspect-ratio: 1 / 1.05;
-  background: radial-gradient(circle at 50% 35%, rgba(235, 0, 40, 0.22) 0%, #0d0d12 72%);
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 26px;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  overflow: hidden;
 }
 
-.classified-stamp {
-  position: absolute;
-  top: 18px;
-  left: -26px;
-  transform: rotate(-32deg);
-  background: rgba(235, 0, 40, 0.92);
-  color: #ffffff;
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  font-weight: 800;
-  letter-spacing: 0.22em;
-  padding: 4px 30px;
-  box-shadow: 0 0 14px rgba(235, 0, 40, 0.6);
-  z-index: 3;
-}
-
-.avatar-shimmer {
+.emblem-ring-outer {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
-  transform: translateX(-100%);
-  animation: shimmerScan 3.5s infinite;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(235, 0, 40, 0.45);
+  animation: portalSpin 18s linear infinite;
 }
 
-.avatar-mystery-icon {
-  color: rgba(235, 0, 40, 0.55);
-  filter: drop-shadow(0 0 18px rgba(235, 0, 40, 0.5));
-  transition: transform 0.35s ease, color 0.35s ease;
-}
-
-.speaker-teaser-card:hover .avatar-mystery-icon {
-  transform: scale(1.12);
-  color: var(--red);
-}
-
-.teaser-status-badge {
+.emblem-ring-inner {
   position: absolute;
-  bottom: 12px;
-  right: 12px;
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  font-weight: 700;
-  color: #ffffff;
-  background: rgba(0, 0, 0, 0.72);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 3px 10px;
-  border-radius: 100px;
-}
-
-.teaser-card-body {
-  padding: 22px;
-  flex-grow: 1;
+  inset: 16%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #2c050d 0%, #0d0d14 80%);
+  border: 2px solid rgba(235, 0, 40, 0.65);
+  box-shadow: 0 0 35px rgba(235, 0, 40, 0.45), inset 0 0 15px rgba(235, 0, 40, 0.3);
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.teaser-domain-pill {
-  font-family: var(--font-mono);
-  font-size: 0.63rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: #ff385c;
-  background: rgba(235, 0, 40, 0.12);
-  border: 1px solid rgba(235, 0, 40, 0.25);
-  padding: 4px 10px;
-  border-radius: 100px;
-  align-self: flex-start;
-  margin-bottom: 12px;
-}
-
-.teaser-masked-name {
+.emblem-x {
   font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: #ffffff;
-  margin-bottom: 8px;
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--red);
+  text-shadow: 0 0 20px rgba(235, 0, 40, 0.8);
 }
 
-.teaser-talk-theme {
-  font-family: var(--font-sans);
-  font-size: 0.86rem;
-  line-height: 1.55;
-  color: #a1a1aa;
-  font-style: italic;
+.emblem-waves .wave {
+  position: absolute;
+  inset: -12%;
+  border-radius: 50%;
+  border: 1px solid rgba(235, 0, 40, 0.35);
+  animation: pedestalPulse 3s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.emblem-waves .wave-2 {
+  animation-delay: 1.5s;
+}
+
+.monolith-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.8vw, 2.3rem);
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.03em;
   margin-bottom: 16px;
 }
 
-.teaser-reveal-date {
-  margin-top: auto;
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  font-weight: 600;
-  color: #71717a;
+.monolith-subtitle {
+  font-family: var(--font-sans);
+  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+  line-height: 1.7;
+  color: #a1a1aa;
+  max-width: 720px;
+  margin: 0 auto 30px;
+}
+
+.monolith-meta-chips {
   display: flex;
   align-items: center;
-  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 40px;
 }
 
-.lock-icon {
-  font-size: 0.78rem;
+.m-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  padding: 8px 18px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #e4e4e7;
+  transition: all 0.3s ease;
 }
 
-/* Nomination Bar */
-.speaker-nomination-bar {
-  margin-top: 50px;
+.m-chip:hover {
+  background: rgba(235, 0, 40, 0.12);
+  border-color: rgba(235, 0, 40, 0.35);
+  color: #ffffff;
 }
 
-.nomination-box {
-  background: rgba(18, 18, 24, 0.7);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.chip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 6px var(--red);
+}
+
+/* Integrated CTA Dock */
+.monolith-cta-dock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  background: rgba(10, 10, 15, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
-  padding: 24px 34px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  padding: 24px 30px;
+  margin-top: 10px;
+}
+
+.monolith-cta-dock h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 /* ================= $15K 3D EXECUTIVE STAGE (ONE CENTERED BOARD MEMBER AT A TIME) ================= */
@@ -1793,9 +1857,9 @@ h2 { font-size: clamp(2.2rem, 4vw, 4rem); font-weight: 800; letter-spacing: -.04
 /* Holographic Avatar Portal */
 .avatar-3d-portal {
   position: relative;
-  width: 124px;
-  height: 124px;
-  margin: 6px auto 14px;
+  width: 140px;
+  height: 140px;
+  margin: 4px auto 14px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1803,10 +1867,11 @@ h2 { font-size: clamp(2.2rem, 4vw, 4rem); font-weight: 800; letter-spacing: -.04
 
 .portal-cyber-ring {
   position: absolute;
-  inset: -6px;
+  inset: -8px;
   border-radius: 50%;
-  border: 1.5px dashed rgba(235, 0, 40, 0.45);
-  animation: portalSpin 16s linear infinite;
+  border: 1.5px dashed rgba(235, 0, 40, 0.55);
+  animation: portalSpin 18s linear infinite;
+  box-shadow: 0 0 20px rgba(235, 0, 40, 0.25);
   pointer-events: none;
 }
 
@@ -1821,18 +1886,33 @@ h2 { font-size: clamp(2.2rem, 4vw, 4rem); font-weight: 800; letter-spacing: -.04
   height: 100%;
   border-radius: 50%;
   background: radial-gradient(circle at 35% 35%, #2a050d 0%, #0d0d14 85%);
-  border: 2px solid rgba(235, 0, 40, 0.55);
+  border: 2.5px solid rgba(235, 0, 40, 0.6);
   box-shadow: 0 0 30px rgba(235, 0, 40, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transition: all 0.35s ease;
+  transition: all 0.4s ease;
+}
+
+.portal-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 12%;
+  border-radius: 50%;
+  filter: contrast(1.08) brightness(1.02);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
 }
 
 .board-3d-card.active .portal-core-circle {
   border-color: var(--red);
-  box-shadow: 0 0 35px rgba(235, 0, 40, 0.6), inset 0 0 15px rgba(235, 0, 40, 0.35);
+  box-shadow: 0 0 40px rgba(235, 0, 40, 0.7), inset 0 0 18px rgba(235, 0, 40, 0.35);
+}
+
+.board-3d-card.active .portal-photo {
+  filter: contrast(1.12) brightness(1.06);
+  transform: scale(1.04);
 }
 
 .portal-laser-scan {
@@ -1841,43 +1921,36 @@ h2 { font-size: clamp(2.2rem, 4vw, 4rem); font-weight: 800; letter-spacing: -.04
   right: 0;
   height: 2px;
   background: linear-gradient(90deg, transparent, rgba(235, 0, 40, 0.95), transparent);
-  box-shadow: 0 0 10px rgba(235, 0, 40, 0.9);
+  box-shadow: 0 0 12px rgba(235, 0, 40, 0.95);
   animation: laserSweep 3s ease-in-out infinite alternate;
   pointer-events: none;
+  z-index: 2;
 }
 
 @keyframes laserSweep {
   0% { top: 10%; opacity: 0.2; }
-  50% { opacity: 0.9; }
+  50% { opacity: 0.95; }
   100% { top: 90%; opacity: 0.2; }
-}
-
-.portal-monogram {
-  font-family: var(--font-display);
-  font-size: 2.1rem;
-  font-weight: 900;
-  color: #ffffff;
-  letter-spacing: -0.02em;
-  text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
 }
 
 .portal-badge-x {
   position: absolute;
   bottom: 4px;
   right: 4px;
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   background: var(--red);
   color: #ffffff;
   font-family: var(--font-display);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 900;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 2px solid #07070a;
-  box-shadow: 0 0 10px var(--red);
+  box-shadow: 0 0 12px var(--red);
+  z-index: 3;
 }
 
 /* Card Info Cluster */
@@ -2287,6 +2360,39 @@ footer p { margin: 0; font-size: .8rem; }
   .speakers-teaser-section {
     padding: 85px 0 70px;
   }
+  .monolith-inner {
+    padding: 28px 20px;
+  }
+  .monolith-badge-strip {
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .monolith-title {
+    font-size: 1.5rem;
+  }
+  .monolith-subtitle {
+    font-size: 0.88rem;
+    margin-bottom: 24px;
+  }
+  .monolith-meta-chips {
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+  .m-chip {
+    padding: 6px 14px;
+    font-size: 0.65rem;
+  }
+  .monolith-cta-dock {
+    padding: 20px;
+    flex-direction: column;
+    text-align: center;
+  }
+  .monolith-cta-dock .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
   .board-3d-stage-section {
     padding: 90px 0 80px;
     --card-radius: 250px;
@@ -2311,12 +2417,9 @@ footer p { margin: 0; font-size: .8rem; }
     padding: 22px 18px;
   }
   .avatar-3d-portal {
-    width: 105px;
-    height: 105px;
+    width: 110px;
+    height: 110px;
     margin: 4px auto 10px;
-  }
-  .portal-monogram {
-    font-size: 1.75rem;
   }
   .executive-name {
     font-size: 1.35rem;

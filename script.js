@@ -91,9 +91,9 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-// ================= BENTO & BOARD CARDS SPOTLIGHT INTERACTION =================
+// ================= BENTO & CARDS SPOTLIGHT INTERACTION =================
 // Dynamic cursor-following radiant crimson spotlight
-document.querySelectorAll(".bento-card, .board-member-card, .speaker-teaser-card").forEach(card => {
+document.querySelectorAll(".bento-card, .board-3d-card, .speaker-teaser-card").forEach(card => {
   card.addEventListener("mousemove", (e) => {
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -103,60 +103,195 @@ document.querySelectorAll(".bento-card, .board-member-card, .speaker-teaser-card
   });
 });
 
-// ================= BOARD MEMBERS THEATRICAL SPOTLIGHT =================
-const boardCards = document.querySelectorAll(".board-member-card");
-const rolePills = document.querySelectorAll(".role-pill");
-const spotlightBeam = document.getElementById("spotlightBeam");
+// ================= $15K 3D EXECUTIVE PODIUM CONTROLLER =================
+const cylinder = document.getElementById("carouselCylinder");
+const stageCards = document.querySelectorAll(".board-3d-card");
+const dialTabs = document.querySelectorAll(".dial-role-tab");
+const dialSlider = document.getElementById("dialSlider");
+const prevBtn = document.getElementById("stagePrevBtn");
+const nextBtn = document.getElementById("stageNextBtn");
+const stageViewport = document.getElementById("carouselViewport");
 
-function aimSpotlightAtCard(card, index) {
-  if (!card || !spotlightBeam) return;
+if (cylinder && stageCards.length > 0) {
+  const totalCards = stageCards.length;
+  const stepAngle = 360 / totalCards; // 72 deg
+  let currentStep = 0;
+  let isThrottled = false;
 
-  // Update active states
-  boardCards.forEach(c => c.classList.remove("active"));
-  card.classList.add("active");
+  function updateSliderPosition(activeTab) {
+    if (!dialSlider || !activeTab) return;
+    dialSlider.style.left = `${activeTab.offsetLeft}px`;
+    dialSlider.style.width = `${activeTab.offsetWidth}px`;
 
-  rolePills.forEach(p => p.classList.remove("active"));
-  if (rolePills[index]) rolePills[index].classList.add("active");
-
-  // Calculate position relative to board section
-  const section = document.querySelector(".board-members-section");
-  if (section) {
-    const cardRect = card.getBoundingClientRect();
-    const sectionRect = section.getBoundingClientRect();
-    const cardCenter = cardRect.left + (cardRect.width / 2) - sectionRect.left;
-    spotlightBeam.style.left = `${cardCenter}px`;
-    spotlightBeam.style.opacity = "0.92";
+    // Auto scroll tab on mobile screens if needed
+    const rail = document.getElementById("dialRail");
+    if (rail && rail.scrollWidth > rail.clientWidth) {
+      const scrollTarget = activeTab.offsetLeft - (rail.clientWidth / 2) + (activeTab.offsetWidth / 2);
+      rail.scrollTo({ left: scrollTarget, behavior: "smooth" });
+    }
   }
-}
 
-// Hover/click on board member cards
-boardCards.forEach((card, index) => {
-  card.addEventListener("mouseenter", () => aimSpotlightAtCard(card, index));
-  card.addEventListener("click", () => aimSpotlightAtCard(card, index));
-});
+  function getActiveIndex() {
+    return ((currentStep % totalCards) + totalCards) % totalCards;
+  }
 
-// Click on role pills
-rolePills.forEach((pill, index) => {
-  pill.addEventListener("click", () => {
-    if (boardCards[index]) {
-      aimSpotlightAtCard(boardCards[index], index);
-      boardCards[index].scrollIntoView({ behavior: "smooth", block: "nearest" });
+  function rotateStage() {
+    const rotationAngle = -currentStep * stepAngle;
+    cylinder.style.transform = `rotateY(${rotationAngle}deg)`;
+
+    const activeIndex = getActiveIndex();
+
+    // Update active classes on cards
+    stageCards.forEach((card, index) => {
+      const isActive = index === activeIndex;
+      card.classList.toggle("active", isActive);
+      // Reset any manual tilt on inactive cards
+      if (!isActive) {
+        card.style.transform = "";
+      }
+    });
+
+    // Update role tabs
+    dialTabs.forEach((tab, index) => {
+      const isActive = index === activeIndex;
+      tab.classList.toggle("active", isActive);
+      if (isActive) {
+        updateSliderPosition(tab);
+      }
+    });
+  }
+
+  function nextMember() {
+    currentStep++;
+    rotateStage();
+  }
+
+  function prevMember() {
+    currentStep--;
+    rotateStage();
+  }
+
+  function goToIndex(targetIndex) {
+    const activeIndex = getActiveIndex();
+    let diff = (targetIndex - activeIndex) % totalCards;
+    if (diff > totalCards / 2) diff -= totalCards;
+    if (diff < -totalCards / 2) diff += totalCards;
+
+    currentStep += diff;
+    rotateStage();
+  }
+
+  // Navigation Arrow clicks
+  if (prevBtn) prevBtn.addEventListener("click", prevMember);
+  if (nextBtn) nextBtn.addEventListener("click", nextMember);
+
+  // Dial Tabs clicks
+  dialTabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => goToIndex(index));
+  });
+
+  // Clicking flanking cards rotates them to center
+  stageCards.forEach((card, index) => {
+    card.addEventListener("click", () => {
+      if (!card.classList.contains("active")) {
+        goToIndex(index);
+      }
+    });
+  });
+
+  // Keyboard navigation when hovering or focusing stage
+  window.addEventListener("keydown", (e) => {
+    const stageRect = stageViewport ? stageViewport.getBoundingClientRect() : null;
+    if (!stageRect) return;
+    const isVisible = stageRect.top < window.innerHeight && stageRect.bottom > 0;
+    if (!isVisible) return;
+
+    if (e.key === "ArrowLeft") {
+      prevMember();
+    } else if (e.key === "ArrowRight") {
+      nextMember();
     }
   });
-});
 
-// Align initial spotlight
-setTimeout(() => {
-  if (boardCards[0]) aimSpotlightAtCard(boardCards[0], 0);
-}, 300);
+  // Mouse wheel rotation over viewport
+  if (stageViewport) {
+    stageViewport.addEventListener("wheel", (e) => {
+      // If user is scrolling over the 3D stage, smooth-cycle members
+      if (Math.abs(e.deltaY) > 20 || Math.abs(e.deltaX) > 20) {
+        if (isThrottled) return;
+        isThrottled = true;
 
-window.addEventListener("resize", () => {
-  const activeCard = document.querySelector(".board-member-card.active") || boardCards[0];
-  if (activeCard) {
-    const index = parseInt(activeCard.getAttribute("data-index") || "0", 10);
-    aimSpotlightAtCard(activeCard, index);
+        if (e.deltaY > 0 || e.deltaX > 0) {
+          nextMember();
+        } else {
+          prevMember();
+        }
+
+        setTimeout(() => {
+          isThrottled = false;
+        }, 550);
+      }
+    }, { passive: true });
+
+    // Touch swipe / Mouse drag gestures
+    let startX = 0;
+    let isDragging = false;
+
+    stageViewport.addEventListener("pointerdown", (e) => {
+      startX = e.clientX;
+      isDragging = true;
+    });
+
+    stageViewport.addEventListener("pointerup", (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      const deltaX = e.clientX - startX;
+      if (Math.abs(deltaX) > 40) {
+        if (deltaX < 0) {
+          nextMember();
+        } else {
+          prevMember();
+        }
+      }
+    });
+
+    stageViewport.addEventListener("pointercancel", () => {
+      isDragging = false;
+    });
   }
-});
+
+  // Active card 3D holographic tilt parallax on mouse move
+  stageCards.forEach(card => {
+    card.addEventListener("mousemove", (e) => {
+      if (!card.classList.contains("active")) return;
+      const rect = card.getBoundingClientRect();
+      const xNorm = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
+      const yNorm = (e.clientY - rect.top) / rect.height - 0.5;
+      const cardAngle = card.style.getPropertyValue("--card-angle") || "0deg";
+      const tiltX = -yNorm * 12; // deg
+      const tiltY = xNorm * 14; // deg
+
+      card.style.transform = `rotateY(${cardAngle}) translateZ(var(--card-radius, 380px)) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+    });
+
+    card.addEventListener("mouseleave", () => {
+      if (card.classList.contains("active")) {
+        card.style.transform = "";
+      }
+    });
+  });
+
+  // Initial stage alignment & slider position
+  window.addEventListener("load", () => {
+    rotateStage();
+  });
+  setTimeout(rotateStage, 150);
+
+  window.addEventListener("resize", () => {
+    const activeTab = dialTabs[getActiveIndex()];
+    if (activeTab) updateSliderPosition(activeTab);
+  });
+}
 
 // ================= NOTIFY BUTTON =================
 const notifyBtn = document.getElementById("notifyBtn");

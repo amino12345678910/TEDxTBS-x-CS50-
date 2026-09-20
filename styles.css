@@ -2187,6 +2187,380 @@ h2 { font-size: clamp(2.2rem, 4vw, 4rem); font-weight: 800; letter-spacing: -.04
   color: rgba(255, 255, 255, 0.32);
   margin-top: 14px;
 }
+
+/* ================= FAQ ACCORDION SECTION ================= */
+.faq-section {
+  padding: 120px 0 100px;
+  position: relative;
+  background: #060609;
+  overflow: hidden;
+}
+
+.faq-bg-ambient {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(235, 0, 40, 0.12) 0%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.faq-header {
+  max-width: 800px;
+  margin: 0 auto 30px;
+}
+
+.faq-main-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin-bottom: 16px;
+}
+
+.faq-lead-desc {
+  font-family: var(--font-sans);
+  font-size: clamp(0.95rem, 1.2vw, 1.08rem);
+  line-height: 1.75;
+  color: #a1a1aa;
+}
+
+.modern-faq-accordion {
+  max-width: 840px;
+  margin: 0 auto;
+}
+
+.modern-faq-accordion .accordion-item {
+  background: rgba(14, 14, 20, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px !important;
+  margin-bottom: 16px;
+  overflow: hidden;
+  transition: all 0.35s ease;
+}
+
+.modern-faq-accordion .accordion-item:hover {
+  border-color: rgba(235, 0, 40, 0.4);
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(235, 0, 40, 0.15);
+}
+
+.modern-faq-accordion .accordion-button {
+  background: transparent;
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  padding: 22px 28px;
+  box-shadow: none !important;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.modern-faq-accordion .accordion-button:not(.collapsed) {
+  background: linear-gradient(90deg, rgba(235, 0, 40, 0.12) 0%, transparent 100%);
+  color: #ffffff;
+}
+
+.modern-faq-accordion .accordion-button::after {
+  filter: invert(1) brightness(2);
+  transition: transform 0.3s ease;
+}
+
+.faq-index {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--red);
+  letter-spacing: 0.1em;
+}
+
+.modern-faq-accordion .accordion-body {
+  padding: 0 28px 24px;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: #a1a1aa;
+}
+
+/* ================= $15K GRAND FINALE: BE PART OF TEDxTBS (LAST SECTION) ================= */
+.be-part-section {
+  padding: 130px 0 110px;
+  position: relative;
+  background: #030305;
+  overflow: hidden;
+}
+
+.be-part-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.be-part-red-ambient {
+  position: absolute;
+  left: 50%;
+  bottom: 12%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(235, 0, 40, 0.28) 0%, rgba(235, 0, 40, 0.08) 50%, transparent 75%);
+  filter: blur(85px);
+  pointer-events: none;
+}
+
+.be-part-floor-sheen {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 280px;
+  background: linear-gradient(180deg, transparent 0%, rgba(235, 0, 40, 0.06) 60%, rgba(0, 0, 0, 0.8) 100%);
+  pointer-events: none;
+}
+
+/* Cyber Accents from Reference Design */
+.cyber-accent-dots-top-left {
+  position: absolute;
+  top: 70px;
+  left: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.cyber-accent-dots-top-left .accent-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ff2b4e;
+  box-shadow: 0 0 10px #ff2b4e;
+}
+
+.cyber-accent-line-left {
+  position: absolute;
+  left: 50px;
+  top: 35%;
+  width: 1px;
+  height: 120px;
+  background: linear-gradient(180deg, transparent, rgba(235, 0, 40, 0.6), transparent);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.cyber-accent-line-right {
+  position: absolute;
+  right: 50px;
+  top: 35%;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.cyber-accent-line-right::before {
+  content: "";
+  width: 1px;
+  flex-grow: 1;
+  background: linear-gradient(180deg, transparent, rgba(235, 0, 40, 0.6));
+}
+
+.accent-down-arrow {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--red);
+  text-shadow: 0 0 10px var(--red);
+  margin-top: 4px;
+}
+
+/* 3D Ribbon X Sculpture Masterpiece */
+.be-part-sculpture-wrapper {
+  max-width: 980px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.sculpture-box {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.be-part-sculpture-img {
+  width: 100%;
+  max-height: 580px;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 45px rgba(235, 0, 40, 0.4));
+  animation: sculptureBreathe 6s ease-in-out infinite alternate;
+}
+
+@keyframes sculptureBreathe {
+  0% {
+    transform: translateY(0);
+    filter: drop-shadow(0 20px 45px rgba(235, 0, 40, 0.35));
+  }
+  100% {
+    transform: translateY(-8px);
+    filter: drop-shadow(0 28px 65px rgba(235, 0, 40, 0.55));
+  }
+}
+
+/* Interactive Conversion Dock */
+.be-part-interactive-dock {
+  max-width: 740px;
+  margin: -15px auto 0;
+  position: relative;
+  z-index: 5;
+}
+
+.event-stamp-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #ff3355;
+  background: rgba(235, 0, 40, 0.12);
+  border: 1px solid rgba(235, 0, 40, 0.3);
+  padding: 6px 18px;
+  border-radius: 100px;
+  margin-bottom: 16px;
+}
+
+.stamp-pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ff2b4e;
+  box-shadow: 0 0 8px #ff2b4e;
+  animation: beaconPulse 1.6s ease-in-out infinite alternate;
+}
+
+.be-part-lead-copy {
+  font-family: var(--font-sans);
+  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+  line-height: 1.7;
+  color: #a1a1aa;
+  max-width: 650px;
+  margin: 0 auto 30px;
+}
+
+/* Finale Countdown */
+.finale-countdown {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.finale-countdown .countdown-card {
+  background: rgba(14, 14, 20, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 20px;
+  padding: 18px 24px;
+  min-width: 105px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.finale-countdown .countdown-card:hover {
+  border-color: rgba(235, 0, 40, 0.5);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 45px rgba(235, 0, 40, 0.25);
+}
+
+.finale-countdown strong {
+  font-family: var(--font-mono);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(235, 0, 40, 0.4);
+}
+
+.finale-countdown small {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #a1a1aa;
+  margin-top: 6px;
+}
+
+/* Priority Notification Form */
+.finale-notify-cluster {
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.notify-form-dock {
+  display: flex;
+  align-items: center;
+  background: rgba(14, 14, 20, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 100px;
+  padding: 6px 8px 6px 22px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+  transition: all 0.35s ease;
+}
+
+.notify-form-dock:focus-within {
+  border-color: rgba(235, 0, 40, 0.6);
+  box-shadow: 0 20px 50px rgba(235, 0, 40, 0.25);
+}
+
+.notify-input {
+  flex-grow: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: #ffffff;
+}
+
+.notify-input::placeholder {
+  color: #71717a;
+}
+
+.btn-notify {
+  flex-shrink: 0;
+  padding: 12px 24px;
+  font-size: 0.75rem;
+}
+
+.notify-message {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #22c55e;
+  margin-top: 14px;
+  min-height: 24px;
+}
+
 footer { background: #030303; border-top: 1px solid #222; padding: 30px 0; color: #777; }
 footer p { margin: 0; font-size: .8rem; }
 .social-links { display: flex; gap: 18px; }
@@ -2465,4 +2839,59 @@ footer p { margin: 0; font-size: .8rem; }
   .event-label { letter-spacing: .13em; }
   .timeline-item { grid-template-columns: 75px 1fr; gap: 15px; padding-left: 25px; }
   .countdown div { min-width: 105px; }
+
+  /* Be Part of TEDxTBS Finale Mobile */
+  .be-part-section {
+    padding: 85px 0 75px;
+  }
+  .cyber-accent-dots-top-left {
+    top: 25px;
+    left: 20px;
+  }
+  .cyber-accent-line-left,
+  .cyber-accent-line-right {
+    display: none;
+  }
+  .be-part-sculpture-img {
+    max-height: 340px;
+  }
+  .be-part-interactive-dock {
+    margin-top: 5px;
+  }
+  .event-stamp-pill {
+    font-size: 0.62rem;
+    padding: 5px 14px;
+    letter-spacing: 0.1em;
+  }
+  .finale-countdown {
+    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .finale-countdown .countdown-card {
+    min-width: unset;
+    padding: 12px 4px;
+    border-radius: 14px;
+  }
+  .finale-countdown strong {
+    font-size: 1.45rem;
+  }
+  .finale-countdown small {
+    font-size: 0.52rem;
+  }
+  .notify-form-dock {
+    border-radius: 20px;
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+  }
+  .notify-input {
+    width: 100%;
+    text-align: center;
+    padding: 6px 0;
+  }
+  .btn-notify {
+    width: 100%;
+    justify-content: center;
+  }
 }

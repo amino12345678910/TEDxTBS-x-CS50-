@@ -293,14 +293,31 @@ if (cylinder && stageCards.length > 0) {
   });
 }
 
-// ================= NOTIFY BUTTON =================
+// ================= PRIORITY NOTIFY FORM =================
+const notifyForm = document.getElementById("notifyForm");
 const notifyBtn = document.getElementById("notifyBtn");
 const notifyMessage = document.getElementById("notifyMessage");
+const notifyEmail = document.getElementById("notifyEmail");
 
-if (notifyBtn && notifyMessage) {
-  notifyBtn.addEventListener("click", () => {
-    notifyMessage.textContent = "Thanks! Registration notifications will be available soon.";
-    notifyBtn.textContent = "YOU'RE ON THE LIST ✓";
+function handlePrioritySubmit(e) {
+  if (e) e.preventDefault();
+  if (notifyEmail && !notifyEmail.checkValidity()) {
+    notifyEmail.reportValidity();
+    return;
+  }
+  if (notifyBtn && notifyMessage) {
+    const emailVal = notifyEmail && notifyEmail.value ? notifyEmail.value.trim() : "";
+    notifyMessage.textContent = emailVal 
+      ? `✓ Priority status confirmed for ${emailVal}. Early access dispatch incoming!`
+      : "✓ You're officially on the priority access list. We will notify you first!";
+    notifyBtn.innerHTML = `<span>YOU'RE ON THE LIST ✓</span>`;
     notifyBtn.disabled = true;
-  });
+    if (notifyEmail) notifyEmail.disabled = true;
+  }
+}
+
+if (notifyForm) {
+  notifyForm.addEventListener("submit", handlePrioritySubmit);
+} else if (notifyBtn) {
+  notifyBtn.addEventListener("click", handlePrioritySubmit);
 }

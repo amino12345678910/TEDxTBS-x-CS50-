@@ -820,45 +820,148 @@
     </div>
   </section>
 
-  <!-- ================= COUNTDOWN / REGISTER ================= -->
-  <section id="register" class="register-section">
-    <div class="container text-center">
-      <p class="section-kicker">DECEMBER 12, 2026 &bull; TUNIS BUSINESS SCHOOL</p>
-      <h2>BE PART OF <span>TEDxTBS</span></h2>
-      <p class="register-copy">Registration details will be announced soon. Secure your spot on the priority list.</p>
-
-      <div class="countdown" aria-label="Event countdown">
-        <div><strong id="days">00</strong><small>DAYS</small></div>
-        <div><strong id="hours">00</strong><small>HOURS</small></div>
-        <div><strong id="minutes">00</strong><small>MINUTES</small></div>
-        <div><strong id="seconds">00</strong><small>SECONDS</small></div>
+  <!-- ================= FAQ ACCORDION SECTION ================= -->
+  <section id="faq" class="faq-section">
+    <div class="faq-bg-ambient"></div>
+    <div class="container position-relative z-2">
+      <div class="faq-header text-center">
+        <div class="section-pill-tag">
+          <span class="beacon-core-pulse"></span>
+          <span class="pill-label">FREQUENTLY ASKED QUESTIONS</span>
+        </div>
+        <h2 class="faq-main-title">
+          <span class="title-row-eyebrow">EVERYTHING YOU NEED</span>
+          <span class="title-row-highlight">
+            <span class="glow-text">TO KNOW</span>
+          </span>
+        </h2>
+        <p class="faq-lead-desc">
+          Essential details regarding attendance eligibility, speaker curation, ticketing timeline, and the December 12 edition at Tunis Business School.
+        </p>
       </div>
 
-      <button id="notifyBtn" class="btn btn-light btn-lg mt-4">NOTIFY ME</button>
-      <p id="notifyMessage" class="notify-message" aria-live="polite"></p>
+      <div class="accordion modern-faq-accordion mt-5" id="faqAccordion">
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#faq1">
+              <span class="faq-index">01</span>
+              <span>What is TEDx and how is TEDxTBS organized?</span>
+            </button>
+          </h3>
+          <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              TEDx is a grassroots initiative created in the spirit of TED's overall mission to research and discover "ideas worth spreading." TEDxTBS is an independently organized event operating under official license from TED, led entirely by student leaders and executive directors at Tunis Business School.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq2">
+              <span class="faq-index">02</span>
+              <span>Who can attend the December 12, 2026 conference?</span>
+            </button>
+          </h3>
+          <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              TEDxTBS welcomes passionate university students, ambitious entrepreneurs, academic faculty, researchers, industry executives, and creative thinkers. Seat allocations are strictly curated to maintain an intellectually vibrant, diverse audience.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq3">
+              <span class="faq-index">03</span>
+              <span>How can I apply or nominate a visionary speaker?</span>
+            </button>
+          </h3>
+          <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Speaker nominations and open calls are managed directly by the Curation &amp; Speaker Coordination division. Applications remain open through late October 2026. Use the nomination button in the speakers section or register below to submit candidates.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq4">
+              <span class="faq-index">04</span>
+              <span>When does early-bird priority registration open?</span>
+            </button>
+          </h3>
+          <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Priority badge registration unlocks in waves. Joining the priority dispatch list below guarantees first-in-line access 48 hours before general ticketing opens to the public.
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ================= FAQ ================= -->
-  <section id="faq" class="faq-section">
-    <div class="container">
-      <p class="section-kicker">QUESTIONS</p>
-      <h2>FREQUENTLY ASKED <span>QUESTIONS</span></h2>
+  <!-- ================= $15K GRAND FINALE: BE PART OF TEDxTBS (LAST SECTION) ================= -->
+  <section id="register" class="be-part-section">
+    <!-- Cinematic Dark Stage Background & Floor Glow -->
+    <div class="be-part-backdrop">
+      <div class="be-part-red-ambient"></div>
+      <div class="be-part-floor-sheen"></div>
+    </div>
 
-      <div class="accordion mt-4" id="faqAccordion">
-        <div class="accordion-item">
-          <h3 class="accordion-header"><button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#faq1">What is TEDx?</button></h3>
-          <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion"><div class="accordion-body">TEDx events are independently organized events that bring people together to share ideas and spark conversations.</div></div>
-        </div>
-        <div class="accordion-item">
-          <h3 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq2">Who can attend?</button></h3>
-          <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">The exact eligibility and registration process will be announced by the organizing team.</div></div>
-        </div>
-        <div class="accordion-item">
-          <h3 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq3">Can I become a speaker?</button></h3>
-          <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">Watch the official TEDxTBS channels for information about speaker applications and nominations.</div></div>
+    <!-- UI Cyber Accents from Reference Design -->
+    <div class="cyber-accent-dots-top-left" aria-hidden="true">
+      <span class="accent-dot"></span>
+      <span class="accent-dot"></span>
+      <span class="accent-dot"></span>
+    </div>
+    <div class="cyber-accent-line-left" aria-hidden="true"></div>
+    <div class="cyber-accent-line-right" aria-hidden="true">
+      <span class="accent-down-arrow">&darr;</span>
+    </div>
+
+    <div class="container position-relative z-3 text-center">
+      <!-- 3D Ribbon X Masterpiece Visual Hero -->
+      <div class="be-part-sculpture-wrapper">
+        <div class="sculpture-box">
+          <img src="assets/be-part-of-tedxtbs.png" alt="Be part of TEDxTBS" class="be-part-sculpture-img" />
+          <div class="sculpture-ambient-reflection"></div>
         </div>
       </div>
+
+      <!-- Registration & Countdown Overlay Dock -->
+      <div class="be-part-interactive-dock">
+        <div class="event-stamp-pill">
+          <span class="stamp-pulse"></span>
+          <span>DECEMBER 12, 2026 &bull; TUNIS BUSINESS SCHOOL</span>
+        </div>
+
+        <p class="be-part-lead-copy">
+          Seats inside the red circle are strictly limited. Secure your priority invite to receive early registration access and official 2026 announcements.
+        </p>
+
+        <!-- Glassmorphic Countdown Timer -->
+        <div class="countdown finale-countdown" aria-label="Event countdown">
+          <div class="countdown-card"><strong id="days">00</strong><small>DAYS</small></div>
+          <div class="countdown-card"><strong id="hours">00</strong><small>HOURS</small></div>
+          <div class="countdown-card"><strong id="minutes">00</strong><small>MINUTES</small></div>
+          <div class="countdown-card"><strong id="seconds">00</strong><small>SECONDS</small></div>
+        </div>
+
+        <!-- Priority Notification Form Dock -->
+        <div class="finale-notify-cluster mt-4">
+          <form class="notify-form-dock" id="notifyForm" onsubmit="return false;">
+            <input type="email" class="notify-input" id="notifyEmail" placeholder="Enter your academic or corporate email" required aria-label="Email address" />
+            <button id="notifyBtn" type="submit" class="btn btn-hero-gold-red btn-notify">
+              <span>GET PRIORITY ACCESS</span>
+              <span class="btn-icon-bubble">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </span>
+            </button>
+          </form>
+          <p id="notifyMessage" class="notify-message" aria-live="polite"></p>
+        </div>
+      </div>
+
     </div>
   </section>
 

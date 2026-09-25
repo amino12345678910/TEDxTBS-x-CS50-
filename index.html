@@ -42,6 +42,7 @@
             <li class="nav-item"><a class="nav-link" href="#about"><span>About</span></a></li>
             <li class="nav-item"><a class="nav-link" href="#speakers"><span>Speakers</span></a></li>
             <li class="nav-item"><a class="nav-link" href="#team"><span>Team</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="#ticket-pass"><span>Ticket Pass</span></a></li>
             <li class="nav-item"><a class="nav-link" href="#faq"><span>FAQ</span></a></li>
           </ul>
           <div class="nav-actions d-flex align-items-center gap-3">
@@ -817,6 +818,140 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- ================= $15K VIP TICKET PASS GENERATOR ================= -->
+  <section id="ticket-pass" class="ticket-generator-section">
+    <!-- Atmospheric Lighting & Background Grid -->
+    <div class="ticket-gen-backdrop">
+      <div class="ticket-gen-ambient-glow"></div>
+      <div class="ticket-cyber-grid"></div>
+    </div>
+
+    <div class="container position-relative z-3">
+      <!-- Section Header -->
+      <div class="ticket-header text-center">
+        <div class="section-pill-tag">
+          <span class="beacon-core-pulse"></span>
+          <span class="pill-label">OFFICIAL CREDENTIALS &bull; PASS GENERATOR</span>
+        </div>
+        <h2 class="ticket-main-title">
+          <span class="title-eyebrow">CLAIM YOUR OFFICIAL</span>
+          <span class="title-highlight">
+            <span class="glow-text">VIP TICKET PASS</span>
+          </span>
+        </h2>
+        <p class="ticket-lead-desc">
+          Have an invitation or registration code? Enter your credentials below to verify your pass, personalize your commemorative ticket, and download your high-resolution pass for December 12, 2026.
+        </p>
+      </div>
+
+      <!-- Generator Console Card -->
+      <div class="ticket-generator-card">
+        
+        <!-- Step 1: Code Verification -->
+        <div class="ticket-step-pane" id="ticketStepCode">
+          <div class="code-entry-header text-center">
+            <div class="lock-beacon-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </div>
+            <h3 class="step-title">Enter Your Access Code</h3>
+            <p class="step-desc">Enter your committee invite, VIP delegate, or early-access attendee code.</p>
+          </div>
+
+          <form id="codeVerifyForm" class="code-verify-form" onsubmit="return false;">
+            <div class="code-input-group">
+              <input type="text" id="accessCodeInput" class="code-input" placeholder="ENTER CODE (e.g. TEDXTBS2026)" autocomplete="off" spellcheck="false" required />
+              <button type="submit" id="btnVerifyCode" class="btn btn-hero-gold-red btn-verify">
+                <span>VERIFY CODE</span>
+                <span class="btn-icon-bubble">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </span>
+              </button>
+            </div>
+            <div class="code-demo-hint">
+              <span class="hint-label">DEMO CODES:</span>
+              <button type="button" class="demo-code-chip" data-code="TEDXTBS2026">TEDXTBS2026 (VIP)</button>
+              <button type="button" class="demo-code-chip" data-code="INNOVATE2026">INNOVATE2026 (Student)</button>
+              <button type="button" class="demo-code-chip" data-code="CS50TBS">CS50TBS (Guest)</button>
+            </div>
+            <p id="codeErrorMsg" class="code-error-msg" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <!-- Step 2: Personalize & View Ticket (Unlocked after code verification) -->
+        <div class="ticket-step-pane d-none" id="ticketStepPreview">
+          
+          <!-- Top verification confirmation bar -->
+          <div class="verified-status-bar d-flex flex-wrap align-items-center justify-content-between">
+            <div class="d-flex align-items-center gap-2">
+              <span class="verified-badge-icon">&#10003;</span>
+              <span class="verified-label">CREDENTIAL VALIDATED:</span>
+              <strong id="validatedPassTier" class="validated-tier-text">VIP ALL-ACCESS PASS</strong>
+            </div>
+            <button type="button" id="btnChangeCode" class="btn-change-code">Change Code</button>
+          </div>
+
+          <!-- Name Entry Input -->
+          <div class="name-entry-cluster">
+            <label for="attendeeNameInput" class="name-input-label">TYPE YOUR NAME TO EMBOSS ON TICKET:</label>
+            <div class="name-input-dock">
+              <input type="text" id="attendeeNameInput" class="name-input" placeholder="Your Full Name (e.g. Amin Gharbi)" maxlength="30" autocomplete="name" />
+              <span class="live-tag">LIVE EMBOSSING</span>
+            </div>
+          </div>
+
+          <!-- Realistic Ticket 3D Canvas Preview -->
+          <div class="ticket-display-stage" id="ticketDisplayStage">
+            <div class="ticket-3d-wrapper" id="ticket3DWrapper">
+              
+              <!-- Real-time HTML visual ticket container overlaying base image -->
+              <div class="ticket-pass-element" id="ticketPassElement">
+                <img src="assets/ticket-base.png" alt="TEDxTBS Official Pass" class="ticket-bg-img" />
+                
+                <!-- Dynamic Overlay Elements on the Ticket -->
+                <div class="ticket-overlay-layer">
+                  <!-- Main Left Body Stamped Info -->
+                  <div class="ticket-stamp-left">
+                    <div class="stamp-attendee-cluster">
+                      <span class="stamp-caption">OFFICIAL DELEGATE</span>
+                      <h4 class="stamp-attendee-name" id="ticketCardName">GUEST ATTENDEE</h4>
+                      <div class="stamp-meta-pills">
+                        <span class="stamp-pill" id="ticketCardTier">VIP PASS</span>
+                        <span class="stamp-serial" id="ticketCardSerial">NO. #TBS-2026-8942</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Right Stub Stamped Info -->
+                  <div class="ticket-stamp-right">
+                    <div class="stub-attendee-badge">
+                      <span class="stub-lbl">HOLDER:</span>
+                      <strong class="stub-val" id="ticketStubName">GUEST</strong>
+                    </div>
+                    <div class="stub-code-badge" id="ticketStubCode">#TBS-8942</div>
+                  </div>
+                </div>
+
+                <div class="ticket-foil-glare" id="ticketGlare"></div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Download & Action Buttons -->
+          <div class="ticket-actions-bar text-center mt-4">
+            <button type="button" id="btnDownloadTicket" class="btn btn-hero-gold-red btn-lg">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <span>DOWNLOAD OFFICIAL TICKET (PNG)</span>
+            </button>
+            <p class="download-subtext">100% Free instant high-resolution PNG souvenir ticket. Ready for mobile wallet and social sharing.</p>
+          </div>
+
+        </div>
+
+      </div>
     </div>
   </section>
 

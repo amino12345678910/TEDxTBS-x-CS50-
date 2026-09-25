@@ -321,3 +321,375 @@ if (notifyForm) {
 } else if (notifyBtn) {
   notifyBtn.addEventListener("click", handlePrioritySubmit);
 }
+
+// ================= $15K VIP TICKET PASS GENERATOR =================
+(function initTicketGenerator() {
+  const codeForm = document.getElementById("codeVerifyForm");
+  const codeInput = document.getElementById("accessCodeInput");
+  const btnVerify = document.getElementById("btnVerifyCode");
+  const errorMsg = document.getElementById("codeErrorMsg");
+  const stepCode = document.getElementById("ticketStepCode");
+  const stepPreview = document.getElementById("ticketStepPreview");
+  const btnChangeCode = document.getElementById("btnChangeCode");
+  const nameInput = document.getElementById("attendeeNameInput");
+  const ticketCardName = document.getElementById("ticketCardName");
+  const ticketStubName = document.getElementById("ticketStubName");
+  const ticketCardTier = document.getElementById("ticketCardTier");
+  const ticketStubCode = document.getElementById("ticketStubCode");
+  const ticketCardSerial = document.getElementById("ticketCardSerial");
+  const validatedTierText = document.getElementById("validatedPassTier");
+  const stage = document.getElementById("ticketDisplayStage");
+  const wrapper = document.getElementById("ticket3DWrapper");
+  const glare = document.getElementById("ticketGlare");
+  const btnDownload = document.getElementById("btnDownloadTicket");
+  const demoChips = document.querySelectorAll(".demo-code-chip");
+
+  if (!codeForm || !codeInput || !stepCode || !stepPreview) return;
+
+  // Pre-approved valid access codes & tier metadata
+  const PASS_TIERS = {
+    "TEDXTBS2026": {
+      tier: "VIP ALL-ACCESS PASS",
+      badge: "VIP PASS",
+      prefix: "TBS-VIP",
+      accent: "#eb0028"
+    },
+    "INNOVATE2026": {
+      tier: "STUDENT INNOVATOR PASS",
+      badge: "INNOVATOR",
+      prefix: "TBS-INN",
+      accent: "#eb0028"
+    },
+    "CS50TBS": {
+      tier: "CS50 SPECIAL GUEST PASS",
+      badge: "CS50 GUEST",
+      prefix: "TBS-CS50",
+      accent: "#eb0028"
+    },
+    "TBSGUEST": {
+      tier: "HONORED GUEST PASS",
+      badge: "GUEST PASS",
+      prefix: "TBS-GST",
+      accent: "#eb0028"
+    },
+    "TEDXPASS26": {
+      tier: "GENERAL DELEGATE PASS",
+      badge: "GENERAL PASS",
+      prefix: "TBS-GEN",
+      accent: "#eb0028"
+    },
+    "ORGANISER26": {
+      tier: "EXECUTIVE BOARD PASS",
+      badge: "ORGANISER",
+      prefix: "TBS-EXEC",
+      accent: "#eb0028"
+    },
+    "SPEAKER2026": {
+      tier: "OFFICIAL SPEAKER PASS",
+      badge: "SPEAKER",
+      prefix: "TBS-SPK",
+      accent: "#eb0028"
+    },
+    "TBS2026": {
+      tier: "COMMUNITY PASS",
+      badge: "DELEGATE",
+      prefix: "TBS-DEL",
+      accent: "#eb0028"
+    }
+  };
+
+  let currentTierData = null;
+  let currentSerial = "";
+  let currentStubCode = "";
+
+  // Generate deterministic serial number based on code or random
+  function generatePassCredentials(code) {
+    const randomHex = Math.floor(1000 + Math.random() * 9000);
+    const prefix = (PASS_TIERS[code] && PASS_TIERS[code].prefix) || "TBS-PASS";
+    const serial = `NO. #${prefix}-2026-${randomHex}`;
+    const stub = `#${prefix}-${randomHex}`;
+    return { serial, stub };
+  }
+
+  function verifyCode(enteredCode) {
+    const cleanCode = (enteredCode || "").trim().toUpperCase();
+    if (!cleanCode) {
+      showError("Please enter an access code to proceed.");
+      triggerShake();
+      return false;
+    }
+
+    if (!PASS_TIERS[cleanCode]) {
+      showError("Invalid access code. Please check credentials or select one of the demo codes above.");
+      triggerShake();
+      return false;
+    }
+
+    // Valid code verified!
+    clearError();
+    currentTierData = PASS_TIERS[cleanCode];
+    const creds = generatePassCredentials(cleanCode);
+    currentSerial = creds.serial;
+    currentStubCode = creds.stub;
+
+    // Apply tier metadata to DOM elements
+    if (validatedTierText) validatedTierText.textContent = currentTierData.tier;
+    if (ticketCardTier) ticketCardTier.textContent = currentTierData.badge;
+    if (ticketCardSerial) ticketCardSerial.textContent = currentSerial;
+    if (ticketStubCode) ticketStubCode.textContent = currentStubCode;
+
+    // Switch step views with smooth animation
+    stepCode.classList.add("d-none");
+    stepPreview.classList.remove("d-none");
+    stepPreview.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+    // Focus name input for instant personalization
+    if (nameInput) {
+      nameInput.value = "";
+      nameInput.focus();
+    }
+    updateTicketHolder("GUEST ATTENDEE");
+    return true;
+  }
+
+  function showError(msg) {
+    if (errorMsg) {
+      errorMsg.textContent = msg;
+      errorMsg.style.display = "block";
+    }
+  }
+
+  function clearError() {
+    if (errorMsg) {
+      errorMsg.textContent = "";
+      errorMsg.style.display = "none";
+    }
+  }
+
+  function triggerShake() {
+    const inputGroup = document.querySelector(".code-input-group");
+    if (inputGroup) {
+      inputGroup.classList.remove("shake-anim");
+      void inputGroup.offsetWidth; // Force CSS reflow
+      inputGroup.classList.add("shake-anim");
+      setTimeout(() => {
+        inputGroup.classList.remove("shake-anim");
+      }, 500);
+    }
+  }
+
+  function updateTicketHolder(rawName) {
+    const trimmed = (rawName || "").trim();
+    const displayName = trimmed.length > 0 ? trimmed.toUpperCase() : "GUEST ATTENDEE";
+    const stubName = trimmed.length > 0 ? trimmed.toUpperCase() : "GUEST";
+
+    if (ticketCardName) ticketCardName.textContent = displayName;
+    if (ticketStubName) ticketStubName.textContent = stubName;
+  }
+
+  // Event Listeners
+  if (codeForm) {
+    codeForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      verifyCode(codeInput.value);
+    });
+  }
+
+  if (btnVerify) {
+    btnVerify.addEventListener("click", () => {
+      verifyCode(codeInput.value);
+    });
+  }
+
+  // Demo chips click-to-verify
+  demoChips.forEach(chip => {
+    chip.addEventListener("click", () => {
+      const code = chip.getAttribute("data-code");
+      if (codeInput) codeInput.value = code;
+      verifyCode(code);
+    });
+  });
+
+  // Change code button
+  if (btnChangeCode) {
+    btnChangeCode.addEventListener("click", () => {
+      stepPreview.classList.add("d-none");
+      stepCode.classList.remove("d-none");
+      clearError();
+      if (codeInput) {
+        codeInput.value = "";
+        codeInput.focus();
+      }
+    });
+  }
+
+  // Live Name Embossing
+  if (nameInput) {
+    nameInput.addEventListener("input", (e) => {
+      updateTicketHolder(e.target.value);
+    });
+  }
+
+  // 3D Mouse Parallax Tilt & Reactive Hologram Foil Glare
+  if (stage && wrapper) {
+    stage.addEventListener("mousemove", (e) => {
+      const rect = stage.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+      const tiltX = -y * 14; // deg
+      const tiltY = x * 16;  // deg
+
+      wrapper.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`;
+
+      if (glare) {
+        const glareX = ((x + 0.5) * 100).toFixed(1);
+        const glareY = ((y + 0.5) * 100).toFixed(1);
+        glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.24) 0%, rgba(235,0,40,0.18) 35%, transparent 70%)`;
+        glare.style.opacity = "1";
+      }
+    });
+
+    stage.addEventListener("mouseleave", () => {
+      wrapper.style.transform = "rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+      if (glare) {
+        glare.style.opacity = "0";
+      }
+    });
+  }
+
+  // High-Resolution Client-side HTML5 Canvas PNG Generator & Downloader
+  if (btnDownload) {
+    btnDownload.addEventListener("click", () => {
+      downloadTicketPNG();
+    });
+  }
+
+  function downloadTicketPNG() {
+    const originalContent = btnDownload.innerHTML;
+    btnDownload.innerHTML = `
+      <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" style="width: 1rem; height: 1rem; border-width: 0.15em;"></span>
+      <span>GENERATING HIGH-RES PASS...</span>
+    `;
+    btnDownload.disabled = true;
+
+    const baseImg = new Image();
+    baseImg.crossOrigin = "anonymous";
+    baseImg.src = "assets/ticket-base.png";
+
+    baseImg.onload = () => {
+      try {
+        // High-res 2x canvas for crisp print-grade quality (2048 x 1152)
+        const scale = 2;
+        const canvas = document.createElement("canvas");
+        canvas.width = (baseImg.naturalWidth || 1024) * scale;
+        canvas.height = (baseImg.naturalHeight || 576) * scale;
+        const ctx = canvas.getContext("2d");
+
+        // 1. Draw base official artwork
+        ctx.drawImage(baseImg, 0, 0, canvas.width, canvas.height);
+
+        // 2. Dynamic Text Data
+        const attendeeRaw = (nameInput && nameInput.value) ? nameInput.value.trim() : "";
+        const attendeeName = (attendeeRaw || "GUEST ATTENDEE").toUpperCase();
+        const badgeName = (currentTierData && currentTierData.badge) ? currentTierData.badge : "VIP PASS";
+        const serialNo = currentSerial || "NO. #TBS-2026-8942";
+        const stubCode = currentStubCode || "#TBS-8942";
+
+        // Proportional coordinates calibrated to canvas
+        const leftX = canvas.width * 0.07;
+        const nameY = canvas.height * 0.77;
+
+        // A. Draw "OFFICIAL DELEGATE" caption
+        ctx.save();
+        ctx.font = "bold 20px 'Space Grotesk', monospace, sans-serif";
+        ctx.fillStyle = "rgba(255, 255, 255, 0.65)";
+        ctx.fillText("OFFICIAL DELEGATE", leftX, nameY - 44);
+        ctx.restore();
+
+        // B. Draw Attendee Name with Red Neon Glow
+        ctx.save();
+        ctx.font = "900 52px 'Montserrat', sans-serif";
+        ctx.shadowColor = "rgba(235, 0, 40, 0.9)";
+        ctx.shadowBlur = 25;
+        ctx.fillStyle = "#ffffff";
+        ctx.fillText(attendeeName, leftX, nameY);
+        // Second pass for crisp inner white core
+        ctx.shadowBlur = 0;
+        ctx.fillText(attendeeName, leftX, nameY);
+        ctx.restore();
+
+        // C. Draw Pass Tier Pill Box
+        const pillY = nameY + 22;
+        ctx.font = "bold 22px 'Space Grotesk', monospace, sans-serif";
+        const pillTextWidth = ctx.measureText(badgeName).width;
+        const pillPaddingX = 20;
+        const pillHeight = 36;
+
+        ctx.fillStyle = "#eb0028";
+        ctx.beginPath();
+        if (ctx.roundRect) {
+          ctx.roundRect(leftX, pillY, pillTextWidth + (pillPaddingX * 2), pillHeight, 8);
+        } else {
+          ctx.rect(leftX, pillY, pillTextWidth + (pillPaddingX * 2), pillHeight);
+        }
+        ctx.fill();
+
+        // Pill text
+        ctx.fillStyle = "#ffffff";
+        ctx.fillText(badgeName, leftX + pillPaddingX, pillY + 26);
+
+        // D. Draw Serial Number
+        const serialX = leftX + pillTextWidth + (pillPaddingX * 2) + 24;
+        ctx.font = "bold 20px 'Space Grotesk', monospace, sans-serif";
+        ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
+        ctx.fillText(serialNo, serialX, pillY + 26);
+
+        // E. Draw Right Stub Information (right-aligned)
+        const stubRightX = canvas.width * 0.945;
+        const stubY = canvas.height * 0.57;
+
+        ctx.textAlign = "right";
+        ctx.font = "bold 18px 'Space Grotesk', monospace, sans-serif";
+        ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
+        ctx.fillText("HOLDER: " + (attendeeRaw.toUpperCase() || "GUEST"), stubRightX, stubY);
+
+        ctx.font = "bold 20px 'Space Grotesk', monospace, sans-serif";
+        ctx.fillStyle = "#eb0028";
+        ctx.fillText(stubCode, stubRightX, stubY + 30);
+
+        // F. Trigger Instant Download via data URL
+        const dataUrl = canvas.toDataURL("image/png", 1.0);
+        const downloadLink = document.createElement("a");
+        const safeName = attendeeName.replace(/[^a-zA-Z0-9_-]/g, "_");
+        downloadLink.download = `TEDxTBS-2026-Pass-${safeName}.png`;
+        downloadLink.href = dataUrl;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+
+        btnDownload.innerHTML = `
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>PASS DOWNLOADED ✓</span>
+        `;
+        setTimeout(() => {
+          btnDownload.innerHTML = originalContent;
+          btnDownload.disabled = false;
+        }, 2500);
+
+      } catch (err) {
+        console.error("Ticket generation error:", err);
+        btnDownload.innerHTML = originalContent;
+        btnDownload.disabled = false;
+        alert("Unable to generate pass image. Please try again.");
+      }
+    };
+
+    baseImg.onerror = () => {
+      console.error("Failed to load ticket base image.");
+      btnDownload.innerHTML = originalContent;
+      btnDownload.disabled = false;
+      alert("Ticket artwork could not be loaded.");
+    };
+  }
+})();
